@@ -10,11 +10,11 @@ public class Main {
 
         Meeting meeting1 = new Meeting(LocalTime.of(9, 0), LocalTime.of(10, 0));
         Meeting meeting2 = new Meeting(LocalTime.of(10, 30), LocalTime.of(11, 30));
-        // Meeting m3 = new Meeting(LocalTime.of(12,40),LocalTime.of(12,52));
+         Meeting m3 = new Meeting(LocalTime.of(12,40),LocalTime.of(12,52));
 
         workspace.addMeeting(meeting1);
         workspace.addMeeting(meeting2);
-        //workspace.addMeeting(m3);
+        workspace.addMeeting(m3);
 
 
         int maxMeetings = workspace.findMaxMeetings();

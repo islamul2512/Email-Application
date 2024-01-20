@@ -12,19 +12,34 @@ public class Workspace extends Gmail{
         calendar.add(meeting);
     }
     public int findMaxMeetings() {
-        int maxMeetings = 0;
-        for (Meeting meeting : calendar) {
-            int overlappingMeetings = 0;
-            for (Meeting otherMeeting : calendar) {
-                if (meeting != otherMeeting &&
-                        meeting.getStartTime().isBefore(otherMeeting.getEndTime()) &&
-                        meeting.getEndTime().isAfter(otherMeeting.getStartTime())) {
-                    overlappingMeetings++;
-                }
+        calendar.sort(Comparator.comparing(Meeting::getEndTime));
 
+        int maxMeetings = 0;
+        LocalTime previousEndTime = LocalTime.MIN;
+
+        for (Meeting meeting : calendar) {
+            if (meeting.getStartTime().isAfter(previousEndTime)) {
+                // This meeting can be attended without overlapping
+                maxMeetings++;
+                previousEndTime = meeting.getEndTime();
             }
-            maxMeetings = Math.max(maxMeetings, overlappingMeetings + 1);
         }
+
         return maxMeetings;
+
+//        int maxMeetings = 0;
+//        for (Meeting meeting : calendar) {
+//            int overlappingMeetings = 0;
+//            for (Meeting otherMeeting : calendar) {
+//                if (meeting != otherMeeting &&
+//                        meeting.getStartTime().isBefore(otherMeeting.getEndTime()) &&
+//                        meeting.getEndTime().isAfter(otherMeeting.getStartTime())) {
+//                    overlappingMeetings++;
+//                }
+//
+//            }
+//            maxMeetings = Math.max(maxMeetings, overlappingMeetings + 1);
+//        }
+//        return maxMeetings;
     }
 }
